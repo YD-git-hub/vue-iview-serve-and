@@ -1,5 +1,3 @@
-# tangtangserve
-
 ## Project setup
 ```
 npm install
