@@ -1,0 +1,22 @@
+@bgcl: #0A1E41;
+@color: #fff;
+@Footcolor: #72809B;
+@fontcolor: #7c7c7c;
+
+.bgcolor() {
+    //带默认值的
+    background: @bgcl;
+}
+.color(){
+    color: @color;
+}
+.fontcolor(){
+    color: @fontcolor;
+}
+.footcolor(){
+    color: @Footcolor;
+}
+.border(@px:1px,@cr){
+    border: @px solid @cr;
+    border-radius: 6px;
+}
