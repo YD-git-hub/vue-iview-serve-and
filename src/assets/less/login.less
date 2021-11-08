@@ -1,45 +1,37 @@
 @import url("mixin.less");
-.login {
+.login_gight {
+  background: #fff;
+  width: 34%;
+  margin: auto;
+  height:500px;
+  border-radius: 6px;
+  padding: 80px 0px;
   display: flex;
-  justify-content: space-between;
-  background:url("../../assets/images/login_img.png") no-repeat;
-  background-size: 100% 100%;
-  height: 100vh;
-  .login_gight {
-    background: #fff;
-    width: 40%;
-    margin: auto;
-    height: 620px;
-    border-radius: 6px;
-    padding: 80px 0px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  .title {
+    color: #000;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    .title {
-      margin-bottom: 80px;
-      color: #000;
-      display: flex;
-      flex-direction: column;
-      span{
-          width: 84px;
-          height: 3px;
-          background: #2b85e4;
-          display: inline-block;
-      }
+    span{
+        width: 84px;
+        height: 3px;
+        background: #2b85e4;
+        display: inline-block;
     }
-    .form {
-      width: 70%;
-      button {
-        width: 100%;
-      }
+  }
+  .form {
+    width: 70%;
+    button {
+      width: 100%;
     }
-    .footer {
-      width: 70%;
-      display: flex;
-      justify-content: space-between;
-    }
+  }
+  .footer {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
   }
 }
 

@@ -37,7 +37,7 @@ module.exports = {
       entry: 'src/main.js',
       template: 'public/index.html',
       filename: 'index.html',
-      title: 'xxx管理后台',
+      title: '迟不胖管理后台',
       chunks: ['chunk-vendors', 'chunk-common', 'index'],
       cdn: isProd ? cdn.build : cdn.dev
     },
@@ -46,7 +46,7 @@ module.exports = {
     port: 81,
     proxy: { //配置跨域
       '/api': {
-        target: 'http://192.168.188.31',
+        target: 'http://192.168.188.5:3000',
         // target: 'xxxx',
         changOrigin: true, //允许跨域
         ws: true,

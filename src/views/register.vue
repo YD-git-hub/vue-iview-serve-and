@@ -2,148 +2,70 @@
   <div class="register">
     <main class="mian">
       <div class="content">
-        <Tabs :value="Tabsname">
-          <TabPane label="微信快速注册" icon="ios-chatbubbles" name="name1">
-            <div
-              class="content_class"
-              style="height:400px;"
+        <h3 class="title">注册</h3>
+        <div class="content_class" style="height:400px;">
+          <div class="class_from">
+            <Form ref="formCustom" :model="formCustom" :rules="ruleCustom">
+              <FormItem prop="name">
+                <Input
+                  v-model="formCustom.name"
+                  placeholder="请输入账号"
+                ></Input>
+              </FormItem>
+              <FormItem prop="passwd">
+                <Input
+                  type="password"
+                  v-model="formCustom.passwd"
+                  placeholder="请输入密码"
+                ></Input>
+              </FormItem>
+              <FormItem prop="passwdCheck">
+                <Input
+                  type="password"
+                  v-model="formCustom.passwdCheck"
+                  placeholder="请确认密码"
+                ></Input>
+              </FormItem>
+              <FormItem prop="phoneNumber">
+                <Input
+                  v-model="formCustom.phoneNumber"
+                  type="tel"
+                  placeholder="请输入手机号"
+                >
+                  <span slot="prepend">+86</span>
+                  <Button
+                    slot="append"
+                    @click="authcode"
+                    :disabled="smsShow"
+                    >{{ smsShow == false ? smsnum : smsnum + "秒" }}</Button
+                  >
+                </Input>
+              </FormItem>
+              <FormItem prop="cation">
+                <Input
+                  v-model="formCustom.cation"
+                  placeholder="请输入验证码"
+                ></Input>
+              </FormItem>
+              <FormItem>
+                <Button
+                  type="primary"
+                  style="width:100%"
+                  @click="handleSubmit('formCustom', 1)"
+                  >同意条款并注册</Button
+                >
+              </FormItem>
+            </Form>
+            <Radio v-model="single"
+              ><a @click="protocol = true">《迟不胖注册协议》</a></Radio
             >
-              <wxlogin
-                :appid="'wxb0d5108b38499863'"
-                :scope="'snsapi_login'"
-                :theme="'black'"
-                :redirect_uri="
-                  encodeURIComponent(
-                    `xxxxxx`
-                  )
-                "
-                :href="
-                  'data:text/css;base64,LmltcG93ZXJCb3ggLnRpdGxlIHsKICBkaXNwbGF5OiBub25lOwp9CgouaW1wb3dlckJveCAuc3RhdHVzLnN0YXR1c19icm93c2VyIHsKICBkaXNwbGF5OiBub25lOwp9CgouaW1wb3dlckJveCAucXJjb2RlIHsKICBib3JkZXI6IG5vbmU7CiAgbWFyZ2luLXRvcDogMTAwcHg7CiAgd2lkdGg6IDIwMHB4OwogIGhlaWdodDogMjAwcHg7Cn0KCi5pbXBvd2VyQm94IC5zdGF0dXMgewogIGRpc3BsYXk6IG5vbmU7Cn0='
-                "
-                rel="external nofollow"
-              >
-              </wxlogin>
-            </div>
-            <div
-              class="content_class"
-              style="height:400px;"
-              v-show="status == 2"
-            >
-              <div class="class_from">
-                <Form
-                  ref="wxformCustom"
-                  :model="wxformCustom"
-                  :rules="wxruleCustom"
-                >
-                  <FormItem prop="phoneNumber">
-                    <Input
-                      v-model="wxformCustom.phoneNumber"
-                      type="tel"
-                      placeholder="请输入手机号"
-                    >
-                      <span slot="prepend">+86</span>
-                      <Button
-                        slot="append"
-                        @click="wxauthcode"
-                        :disabled="wxsmsShow"
-                        >{{
-                          wxsmsShow == false ? wxsmsnum : wxsmsnum + "秒"
-                        }}</Button
-                      >
-                    </Input>
-                  </FormItem>
-                  <FormItem prop="cation">
-                    <Input
-                      v-model="wxformCustom.cation"
-                      placeholder="请输入验证码"
-                    ></Input>
-                  </FormItem>
-                  <FormItem>
-                    <Button
-                      type="primary"
-                      style="width:100%"
-                      @click="handleSubmit('wxformCustom', 2)"
-                      >同意条款并注册</Button
-                    >
-                  </FormItem>
-                </Form>
-                <Radio v-model="single"
-                  ><a @click="protocol = true">《塘塘云用户注册协议》</a></Radio
-                >
-              </div>
-            </div>
-            <div class="class_footer">
-              <router-link to="/ttclinic/login"
-                ><span>快速登录</span></router-link
-              >
-            </div>
-          </TabPane>
-          <TabPane label="账号密码注册" icon="ios-contact" name="name2">
-            <div class="content_class" style="height:400px;">
-              <div class="class_from">
-                <Form ref="formCustom" :model="formCustom" :rules="ruleCustom">
-                  <FormItem prop="name">
-                    <Input
-                      v-model="formCustom.name"
-                      placeholder="请输入账号"
-                    ></Input>
-                  </FormItem>
-                  <FormItem prop="passwd">
-                    <Input
-                      type="password"
-                      v-model="formCustom.passwd"
-                      placeholder="请输入密码"
-                    ></Input>
-                  </FormItem>
-                  <FormItem prop="passwdCheck">
-                    <Input
-                      type="password"
-                      v-model="formCustom.passwdCheck"
-                      placeholder="请确认密码"
-                    ></Input>
-                  </FormItem>
-                  <FormItem prop="phoneNumber">
-                    <Input
-                      v-model="formCustom.phoneNumber"
-                      type="tel"
-                      placeholder="请输入手机号"
-                    >
-                      <span slot="prepend">+86</span>
-                      <Button
-                        slot="append"
-                        @click="authcode"
-                        :disabled="smsShow"
-                        >{{ smsShow == false ? smsnum : smsnum + "秒" }}</Button
-                      >
-                    </Input>
-                  </FormItem>
-                  <FormItem prop="cation">
-                    <Input
-                      v-model="formCustom.cation"
-                      placeholder="请输入验证码"
-                    ></Input>
-                  </FormItem>
-                  <FormItem>
-                    <Button
-                      type="primary"
-                      style="width:100%"
-                      @click="handleSubmit('formCustom', 1)"
-                      >同意条款并注册</Button
-                    >
-                  </FormItem>
-                </Form>
-                <Radio v-model="single"
-                  ><a @click="protocol = true">《xxxxx注册协议》</a></Radio
-                >
-              </div>
-            </div>
-            <div class="class_footer">
-              <router-link to="/"
-                ><span>快速登录</span></router-link
-              >
-            </div>
-          </TabPane>
-        </Tabs>
+          </div>
+        </div>
+        <div class="class_footer">
+          <router-link to="/"
+            ><span>快速登录</span></router-link
+          >
+        </div>
       </div>
       <!-- 注册协议 -->
       <Modal
@@ -155,10 +77,10 @@
         :mask-closable="false"
       >
         <p slot="header" style="color:#2d8cf0;text-align:center">
-          <span>xxxxx用户协议</span>
+          <span>迟不胖用户协议</span>
         </p>
         <p style="height:400px;overflow: hidden;overflow-y: scroll;">
-         xxxxxxxx
+         迟不胖管理后台
         </p>
       </Modal>
     </main>
@@ -166,7 +88,8 @@
 </template>
 
 <script>
-import wxlogin from "vue-wxlogin";
+import {_code,_sign} from "@/axios/publics"
+// import {_code,_login,_sign} from "@/axios/publics"
 export default {
   data() {
     const validatePass = (rule, value, callback) => {
@@ -240,6 +163,7 @@ export default {
       wxsmsShow: false,
       Tabsname: "name2",
       protocol: false,
+      status:1
     };
   },
   created() {
@@ -252,12 +176,19 @@ export default {
           this.$refs[name].validate((valid) => {
             if (valid) {
               if (this.single) {
-                this.$Message.success('注册成功');
-                setTimeout(() => {
-                  this.$router.push({
-                    path: "/login",
-                  });
-                }, 1000);
+                let data = {
+                    phone:this.formCustom.phoneNumber,
+                    user_name:this.formCustom.name,
+                    user_password:this.formCustom.passwd,
+                    code:this.formCustom.cation,
+                };
+                _sign(data).then(res=>{
+                  if(res.code===200){
+                    this.$Message.success(res.msg)
+                  }else{
+                    this.$Message.error(res.msg);
+                  }
+                })
               } else {
                 this.$Message.warning("请勾选注册协议!");
               }
@@ -293,14 +224,11 @@ export default {
     // },
     //验证码
     authcode() {
-      let data = {
-        tel: this.formCustom.phoneNumber,
-      };
-      if (data.tel != "") {
-        this.$Message.success('验证码为123456');
-      } else {
-        this.$Message.warning("电话号码为空!");
-      }
+      _code().then(res=>{
+        if(res.code==200){
+          alert('验证码为:'+res.data)
+        }
+      })
     },
     //微信验证码
     wxauthcode() {
@@ -322,7 +250,6 @@ export default {
     },
   },
   components: {
-    wxlogin,
   },
 };
 </script>
@@ -330,7 +257,7 @@ export default {
 <style lang="less" scoped>
 @import url("../assets/less/mixin.less");
 .register{
-  height: 100%;
+  height: 100vh;
   background:url("../assets/images/login_img.png") no-repeat;
   background-size: 100% 100%;
 }
@@ -340,10 +267,15 @@ export default {
   justify-content: center;
   align-items: center
 }
+.title{
+  text-align: center;
+  color: #fff;
+  font-size: 24px;
+  line-height: 60px;
+}
 .content {
   .bgcolor();
   width: 34%;
-  padding-top: 30px;
   border-radius: 6px;
   .content_class {
     background: #fff;
@@ -351,21 +283,6 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    .wxlong {
-      display: flex;
-    }
-    // .class_img {
-    //   width: 80px;
-    //   height: 80px;
-    //   display: flex;
-    //   flex-direction: column;
-    //   align-items: center;
-    //   font-weight: bold;
-    //   img {
-    //     width: 50px;
-    //     height: 50px;
-    //   }
-    // }
     .class_from {
       width: 50%;
       text-align: center;

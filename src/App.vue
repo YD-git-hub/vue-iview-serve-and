@@ -9,33 +9,11 @@ export default {
     data(){
         return{
             tagpx: 0,//导航标签
-            formInline: {
-                user: "",
-                password: "",
-            },//账号登录
-            ruleInline: {
-                user: [
-                {
-                    required: true,
-                    message: "请输入账号!",
-                    trigger: "blur",
-                },
-                ],
-                password: [
-                {
-                    required: true,
-                    message: "请输入密码!",
-                    trigger: "blur",
-                },
-                ],
-            },//字段验证
         }
     },
     provide(){
         return{
             tag_go:this.tag_go,
-            formInline:this.formInline,
-            ruleInline:this.ruleInline
         }
     },
     methods: {
@@ -63,5 +41,5 @@ export default {
 };
 </script>
 <style lang="less">
-@import url("./assets/less/commo.less");
+
 </style>
