@@ -121,7 +121,7 @@
 </template>
 <script>
 export default {
-  inject: ["tag_go"],
+  // inject: ["tag_go"],
   data() {
     return {
       avatar_img: require("@/assets/images/avatar.jpg"),
@@ -146,21 +146,21 @@ export default {
       leftactive: "HOME1",
       leftlist: [
         {
-          label: "HOME1",
+          label: "首页",
           name: "HOME1",
           icon: "md-home",
           id: "1",
           to: "/Home/index",
         },
         {
-          label: "HOME11",
+          label: "预约控件",
           name: "HOME11",
           icon: "ios-paper",
           id: "1",
           to: "/Home/business",
         },
         {
-          label: "HOME2",
+          label: "日历",
           name: "HOME2",
           icon: "ios-paper",
           id: "2",
@@ -168,6 +168,7 @@ export default {
         },
       ],
       breadnav: [],
+      tagpx: 0,//导航标签
     };
   },
   created() {
@@ -195,25 +196,25 @@ export default {
   },
   methods: {
     bread(bre) {
-      if (bre.path) {
-        let toparr = this.toplist.filter((item) => item.id == bre.id)[0];
-        let leftarr = this.leftlist.filter((item) => item.to == bre.path)[0];
-        if (toparr) {
+        if (bre.path) {
+          let toparr = this.toplist.filter((item) => item.id == bre.id)[0];
+          let leftarr = this.leftlist.filter((item) => item.to == bre.path)[0];
+          if (toparr) {
+            this.$nextTick(() => {
+              this.topactive = toparr.label;
+              this.activeid = toparr.id;
+            });
+          } else {
+            let toparr = this.admin;
+            this.$nextTick(() => {
+              this.topactive = toparr.label;
+              this.activeid = toparr.id;
+            });
+          }
           this.$nextTick(() => {
-            this.topactive = toparr.label;
-            this.activeid = toparr.id;
-          });
-        } else {
-          let toparr = this.admin;
-          this.$nextTick(() => {
-            this.topactive = toparr.label;
-            this.activeid = toparr.id;
-          });
+            this.leftactive = leftarr.name;
+          })
         }
-        this.$nextTick(() => {
-          this.leftactive = leftarr.name;
-        });
-      }
     },
     leftclick(item) {
       this.leftactive = item.name;
@@ -229,9 +230,7 @@ export default {
     },
     collapsedSider() {
       this.$refs.side1.toggleCollapse();
-      this.layout_active
-        ? (this.layout_active = false)
-        : (this.layout_active = true);
+      this.layout_active ? this.layout_active = false : this.layout_active = true;
     },
     // tag标签
     handleClose2(index) {
@@ -251,6 +250,24 @@ export default {
           activeid: item.id,
         })
       );
+    },
+    tag_go(id) {
+      let tags = document.getElementsByClassName("tges")[0];
+      switch (id) {
+        case 1:
+          if (this.tagpx == 0) return;
+          this.tagpx += 44;
+          tags.style.left = this.tagpx + "px";
+          break;
+        case 2:
+          if (tags.clientWidth + this.tagpx < 78) {
+            this.$Message.warning("已经到标签最后了");
+            return;
+          }
+          this.tagpx -= 44;
+          tags.style.left = this.tagpx + "px";
+          break;
+      }
     },
     //退出登录
     quit(name) {

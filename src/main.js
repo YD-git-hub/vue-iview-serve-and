@@ -11,7 +11,7 @@ import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
 import Base64 from './assets/utils/Base64';
-// import './mock/mock'
+import './mock/mock'
 Vue.prototype.$Base64 = Base64;
 Vue.use(VueQuillEditor);
 Vue.prototype.$echarts = echarts;

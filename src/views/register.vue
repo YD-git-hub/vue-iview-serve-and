@@ -35,7 +35,7 @@
                   <span slot="prepend">+86</span>
                   <Button
                     slot="append"
-                    @click="authcode"
+                    @click="wxauthcode"
                     :disabled="smsShow"
                     >{{ smsShow == false ? smsnum : smsnum + "秒" }}</Button
                   >
@@ -51,7 +51,7 @@
                 <Button
                   type="primary"
                   style="width:100%"
-                  @click="handleSubmit('formCustom', 1)"
+                  @click="handleSubmit('formCustom')"
                   >同意条款并注册</Button
                 >
               </FormItem>
@@ -88,8 +88,6 @@
 </template>
 
 <script>
-import {_code,_sign} from "@/axios/publics"
-// import {_code,_login,_sign} from "@/axios/publics"
 export default {
   data() {
     const validatePass = (rule, value, callback) => {
@@ -124,14 +122,6 @@ export default {
       if (value === "") callback(new Error("请输入验证码!"));
       else callback();
     };
-    const wxvalidatecation = (rule, value, callback) => {
-      if (value === "") callback(new Error("请输入验证码!"));
-      else callback();
-    };
-    const wxvalidatephoneNumber = (rule, value, callback) => {
-      if (value === "") callback(new Error("请输入手机号!"));
-      else callback();
-    };
     return {
       formCustom: {
         passwd: "",
@@ -147,21 +137,10 @@ export default {
         passwdCheck: [{ validator: validatePassCheck, trigger: "blur" }],
         cation: [{ validator: validatecation, trigger: "blur" }],
       },
-      //微信绑定手机号
-      wxformCustom: {
-        phoneNumber: "", //手机号
-        cation: "", //验证码
-      },
-      wxruleCustom: {
-        phoneNumber: [{ validator: wxvalidatephoneNumber, trigger: "blur" }],
-        cation: [{ validator: wxvalidatecation, trigger: "blur" }],
-      },
+      code:"",
       single: false,
       smsnum: "发送验证码",
-      wxsmsnum: "发送验证码",
       smsShow: false,
-      wxsmsShow: false,
-      Tabsname: "name2",
       protocol: false,
       status:1
     };
@@ -170,72 +149,38 @@ export default {
   },
   methods: {
     //注册
-    handleSubmit(name, id) {
-      switch (id) {
-        case 1:
-          this.$refs[name].validate((valid) => {
-            if (valid) {
-              if (this.single) {
-                let data = {
-                    phone:this.formCustom.phoneNumber,
-                    user_name:this.formCustom.name,
-                    user_password:this.formCustom.passwd,
-                    code:this.formCustom.cation,
-                };
-                _sign(data).then(res=>{
-                  if(res.code===200){
-                    this.$Message.success(res.msg)
-                  }else{
-                    this.$Message.error(res.msg);
-                  }
-                })
-              } else {
-                this.$Message.warning("请勾选注册协议!");
-              }
-            } else {
-              this.$Message.warning("请检查内容是否齐全!");
-            }
-          });
-          break;
-        //微信注册
-        case 2:
-          this.$refs[name].validate((valid) => {
-            if (valid) {
-              if (this.single) {
-                 this.$Message.success('注册成功');
-                setTimeout(() => {
-                  this.$router.push({
-                    path: "/login",
-                  });
-                }, 1000);
-              } else {
-                this.$Message.warning("请勾选注册协议!");
-              }
-            } else {
-              this.$Message.warning("请检查内容是否齐全!");
-            }
-          });
-          break;
-      }
-    },
-    //清空
-    // handleReset(name) {
-    //   this.$refs[name].resetFields();
-    // },
-    //验证码
-    authcode() {
-      _code().then(res=>{
-        if(res.code==200){
-          alert('验证码为:'+res.data)
+    handleSubmit(name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          if (this.single) {
+            let data = {
+                phone:this.formCustom.phoneNumber,
+                user_name:this.formCustom.name,
+                user_password:this.formCustom.passwd,
+                code:this.formCustom.cation,
+            };
+            console.log(data)//拿到的数据
+            if(this.formCustom.cation!=this.code){
+              this.$Message.error("验证码错误!");
+              return;
+            } 
+            this.$Message.success("注册成功");
+            this.$router.push({name:"publicslogin"})
+          } else {
+            this.$Message.warning("请勾选注册协议!");
+          }
+        } else {
+          this.$Message.warning("请检查内容是否齐全!");
         }
-      })
+      });
     },
-    //微信验证码
+    //验证码
     wxauthcode() {
       let data = {
-        tel: this.wxformCustom.phoneNumber,
+        tel: this.formCustom.phoneNumber,
       };
       if (data.tel != "") {
+        this.code=123456;
         this.$Message.success('验证码为123456');
       } else {
         this.$Message.warning("电话号码为空!");

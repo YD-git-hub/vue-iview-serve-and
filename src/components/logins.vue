@@ -34,23 +34,6 @@
                 ></Icon>
               </Input>
             </FormItem>
-            <FormItem prop="code">
-              <Input
-                type="text"
-                v-model="formInline.code"
-                placeholder="请输入密码"
-              >
-                <Icon
-                  type="ios-lock-outline"
-                  slot="prepend"
-                  color="#2b85e4"
-                ></Icon>
-                <Button
-                  slot="append"
-                  style="width: 100px"
-                >{{1111}}</Button>
-              </Input>
-            </FormItem>
             <FormItem>
               <Button type="primary" @click="handleSubmit('formInline')"
                 >登录</Button

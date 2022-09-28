@@ -46,7 +46,7 @@ module.exports = {
     port: 81,
     proxy: { //配置跨域
       '/api': {
-        target: 'http://192.168.188.5:3000',
+        target: 'http://192.168.2.5:3000',
         // target: 'xxxx',
         changOrigin: true, //允许跨域
         ws: true,

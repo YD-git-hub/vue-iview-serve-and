@@ -44,7 +44,7 @@ const allowRequest = function (reqList, url) {
 if (process.env.NODE_ENV == 'development') {
   //本地(开发)环境
   // axios.defaults.baseURL = '/api';
-  axios.defaults.baseURL = 'http://192.168.188.28:3000';
+  // axios.defaults.baseURL = 'http://192.168.188.28:3000';
 } else if (process.env.NODE_ENV == 'production') {
   //线上（开发）环境
   axios.defaults.baseURL = '';

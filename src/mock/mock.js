@@ -1,7 +1,7 @@
 // 引入mockjs
 const Mock = require('mockjs')
 // 登录
-Mock.mock('/admin/Login/login','post', (data)=>{
+Mock.mock('/Login/login','post', (data)=>{
     let params=data.body.split('&')
     let info=[];
     for (const iter of params) {
@@ -21,7 +21,7 @@ Mock.mock('/admin/Login/login','post', (data)=>{
     }
 })
 //首页数据
-Mock.mock('/admin/Clinic/sys_home_data','get', ()=>{
+Mock.mock('/sys_home_data','get', ()=>{
     return {
         info:{
             data:{
